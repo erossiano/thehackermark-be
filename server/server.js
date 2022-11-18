@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 //CORS
 app.use(cors());
 var corsOptions = {
-    origin: "https://erossiano.github.io/thehackermark/"
+    origin: "https://erossiano.github.io"
   };
 app.use(cors(corsOptions));
   
