@@ -11,7 +11,7 @@ app.use(productRoutes);
 //CORS
 app.use(cors());
 var corsOptions = {
-    origin: "https://erossiano.github.io"
+    origin: ["localhost:3000","localhost:3000/thehackermark","https://erossiano.github.io","https://erossiano.github.io/thehackermark"]
   };
 app.use(cors(corsOptions));
   
