@@ -12,9 +12,9 @@ userRoutes.get("/", (req, res) => {
                         res.send("mensaje");
                     });
 
-userRoutes.get("/user/", getAllUsers);
-userRoutes.get("/user/:id", getUser);
-userRoutes.post("/user/", createUser);
-userRoutes.put("/user/:id", updateUser);
+userRoutes.get("/api/users/", getAllUsers);
+userRoutes.get("/api/users/:id", getUser);
+userRoutes.post("/api/users/", createUser);
+userRoutes.put("/api/users/:id", updateUser);
 
 export default userRoutes;
