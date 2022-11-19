@@ -1,7 +1,6 @@
 import express from "express";
 import cors from "cors";
 
-
 var router = express.Router();
 
 const app = express();
