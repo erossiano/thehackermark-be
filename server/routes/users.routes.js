@@ -8,10 +8,6 @@ import {
 } from "../controllers/User.Controller.js"
 const userRoutes = Router();
 
-userRoutes.get("/", (req, res) => { 
-                        res.send("mensaje");
-                    });
-
 userRoutes.get("/api/users/", getAllUsers);
 userRoutes.get("/api/users/:id", getUser);
 userRoutes.post("/api/users/", createUser);
