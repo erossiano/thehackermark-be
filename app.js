@@ -16,7 +16,7 @@ app.use(productRoutes);
  // app.use(cors({ origin: true , credentials :  false}));
 //app.use(cors(corsOptions));
 app.use(function (req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', 'https://erossiano.github.io/');
+  res.setHeader('Access-Control-Allow-Origin', 'https://erossiano.github.io');
   next();
 });
 
