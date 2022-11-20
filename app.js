@@ -13,13 +13,14 @@ var whitelist = ["localhost:3000","localhost:3000/thehackermark","https://erossi
 
 app.use(cors());
 var corsOptions = {
-    origin: function (origin, callback) {
+/*     origin: function (origin, callback) {
         if (whitelist.indexOf(origin) !== -1) {
           callback(null, true)
         } else {
           callback(new Error('Not allowed by CORS'))
         }
-      }
+      } */
+      origin: "https://erossiano.github.io/thehackermark"
   };
 app.use(cors(corsOptions));
   
