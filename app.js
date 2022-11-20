@@ -20,7 +20,7 @@ var corsOptions = {
           callback(new Error('Not allowed by CORS'))
         }
       } */
-      origin: "https://erossiano.github.io/thehackermark"
+      origin: "https://erossiano.github.io"
   };
 app.use(cors(corsOptions));
   
