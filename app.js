@@ -12,7 +12,7 @@ app.use(productRoutes);
 /* var corsOptions = {
       origin: "erossiano.github.io"
   }; */
-app.user(cors());
+app.use(cors());
  // app.use(cors({ origin: true , credentials :  false}));
 //app.use(cors(corsOptions));
 /* app.use(function (req, res, next) {
