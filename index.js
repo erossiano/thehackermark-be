@@ -5,8 +5,8 @@ import app from "./app.js";
 
 DBconnect();
 
-app.listen(port, (req, res) => {
-   console.log(req.header('Origin'));
+app.listen(port, () => {
+
 });
 
 

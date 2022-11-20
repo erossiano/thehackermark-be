@@ -44,7 +44,7 @@ app.use(productRoutes);
 
 
 userRoutes.get("/", (req, res) => { 
-  res.send("API funcionado!");
+  res.send("API funcionado! : "  +  req.header('origin'));
 });
 
 export default app;
