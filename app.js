@@ -10,7 +10,7 @@ app.use(productRoutes);
 
 //CORS
 var corsOptions = {
-      origin: "https://erossiano.github.io"
+      origin: "erossiano.github.io"
   };
 app.use(cors());  
 //app.use(cors(corsOptions));
