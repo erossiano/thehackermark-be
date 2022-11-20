@@ -14,7 +14,7 @@ app.use(productRoutes);
   }; */
 //app.use(cors());
  // app.use(cors({ origin: true , credentials :  false}));
- const whitelist = ["http://localhost:3000", "https://erossiano.github.io/"];
+ const whitelist = ["https://erossiano.github.io", "http://localhost:3000", "https://erossiano.github.io/"];
  const corsOptions = {
    origin: function (origin, callback) {
      if (!origin || whitelist.indexOf(origin) !== -1) {
