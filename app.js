@@ -31,20 +31,20 @@ app.use(productRoutes);
  app.use(cors(corsOptions));
 
 // Add Access Control Allow Origin headers
-/* app.use((req, res, next) => {
+app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept"
   );
   next();
-}); */
+});
 
 //Ruta general
 
 
 userRoutes.get("/", (req, res) => { 
-  res.send("API funcionado! : "  +  req.header('origin'));
+  res.send("API funcionado! : ");
 });
 
 export default app;
