@@ -9,11 +9,11 @@ app.use(userRoutes);
 app.use(productRoutes);
 
 //CORS
-var corsOptions = {
+/* var corsOptions = {
       origin: "erossiano.github.io"
-  };
+  }; */
 
-  app.use(cors({ origin: true , credentials :  false}));
+ // app.use(cors({ origin: true , credentials :  false}));
 //app.use(cors(corsOptions));
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
