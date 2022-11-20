@@ -13,7 +13,7 @@ var corsOptions = {
       origin: "erossiano.github.io"
   };
 
-  app.use(cors({ origin: 'https://erossiano.github.io' , credentials :  true}));
+  app.use(cors({ origin: true , credentials :  false}));
 //app.use(cors(corsOptions));
   
 
