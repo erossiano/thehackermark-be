@@ -42,7 +42,7 @@ app.use(productRoutes);
 
 
 userRoutes.get("/", (req, res) => { 
-  res.send("API funcionado!" + " - origin: " + cors.prototype());
+  res.send("API funcionado!");
 });
 
 export default app;
