@@ -14,16 +14,10 @@ app.use(productRoutes);
   }; */
 //app.use(cors());
  // app.use(cors({ origin: true , credentials :  false}));
- const whitelist = ["https://erossiano.github.io", "http://localhost:3000", "https://erossiano.github.io/thehackermark/"];
+/*  const whitelist = ["https://erossiano.github.io", "http://localhost:3000", "https://erossiano.github.io/thehackermark/"]; */
  const corsOptions = {
-   origin: function (origin, callback) {
-     if (!origin || whitelist.indexOf(origin) !== -1) {
-       callback(null, true)
-     } else {
-       callback(new Error("Not allowed by CORS"))
-     }
-   },
-   credentials: true,
+   origin: "*",
+   credentials: false,
  }
  app.use(cors(corsOptions))
 
