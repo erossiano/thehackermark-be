@@ -28,7 +28,7 @@ app.use(productRoutes);
   methods: "GET, PUT, POST, DELETE"
 }
 
- app.use(cors(corsOptions));
+ //app.use(cors(corsOptions));
 
 // Add Access Control Allow Origin headers
 /* app.use((req, res, next) => {
