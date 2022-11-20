@@ -22,7 +22,7 @@ app.use(productRoutes);
    credentials: false,
  } */
  var corsOptions = {
-  origin: 'https://erossiano.github.io/thehackermark',
+  AllowedOrigins: 'https://erossiano.github.io/thehackermark',
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }
 
