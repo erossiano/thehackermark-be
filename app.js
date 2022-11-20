@@ -14,7 +14,7 @@ app.use(productRoutes);
   }; */
 //app.use(cors());
  // app.use(cors({ origin: true , credentials :  false}));
- const whitelist = ["https://erossiano.github.io", "http://localhost:3000", "https://erossiano.github.io/"];
+ const whitelist = ["https://erossiano.github.io", "http://localhost:3000", "https://erossiano.github.io/thehackermark/"];
  const corsOptions = {
    origin: function (origin, callback) {
      if (!origin || whitelist.indexOf(origin) !== -1) {
@@ -29,7 +29,7 @@ app.use(productRoutes);
 
 // Add Access Control Allow Origin headers
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "https://erossiano.github.io");
+  res.setHeader("Access-Control-Allow-Origin", "https://erossiano.github.io/thehackermark");
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept"
