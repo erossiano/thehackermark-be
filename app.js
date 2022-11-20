@@ -15,10 +15,10 @@ var corsOptions = {
 //app.use(cors());
  // app.use(cors({ origin: true , credentials :  false}));
 app.use(cors(corsOptions));
-/* app.use(function (req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', 'https://erossiano.github.io');
+
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
   next();
 });
- */
 
 export default app;
