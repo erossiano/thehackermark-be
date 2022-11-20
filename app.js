@@ -9,12 +9,12 @@ app.use(userRoutes);
 app.use(productRoutes);
 
 //CORS
-/* var corsOptions = {
-      origin: "erossiano.github.io"
-  }; */
-app.use(cors());
+var corsOptions = {
+      origin: "https://erossiano.github.io/"
+  };
+//app.use(cors());
  // app.use(cors({ origin: true , credentials :  false}));
-//app.use(cors(corsOptions));
+app.use(cors(corsOptions));
 /* app.use(function (req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', 'https://erossiano.github.io');
   next();
