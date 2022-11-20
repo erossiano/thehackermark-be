@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+//var cors = require('cors');
 //Rutas de componetes
 import userRoutes from "./server/routes/users.routes.js";
 import productRoutes from "./server/routes/products.routes.js";
@@ -20,11 +21,12 @@ app.use(productRoutes);
    origin: "*",
    credentials: false,
  } */
- app.use(cors(
-              {
-                origin: ['https://erossiano.github.io', 'http://localhost:3000']
-              }
-            ));
+ var corsOptions = {
+  origin: 'https://erossiano.github.io/thehackermark',
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
+
+ app.use(cors(corsOptions));
 
 // Add Access Control Allow Origin headers
 /* app.use((req, res, next) => {
@@ -37,8 +39,10 @@ app.use(productRoutes);
 }); */
 
 //Ruta general
+
+
 userRoutes.get("/", (req, res) => { 
-  res.send("API funcionado!");
+  res.send("API funcionado!" + " - origin: " + cors.prototype());
 });
 
 export default app;
