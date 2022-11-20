@@ -19,16 +19,16 @@ app.use(productRoutes);
    origin: "*",
    credentials: false,
  }
- app.use(cors(corsOptions))
+ app.use(cors(corsOptions));
 
 // Add Access Control Allow Origin headers
-app.use((req, res, next) => {
+/* app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept"
   );
   next();
-});
+}); */
 
 export default app;
