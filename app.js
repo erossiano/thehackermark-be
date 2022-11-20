@@ -10,12 +10,23 @@ app.use(express.json());
 app.use(userRoutes);
 app.use(productRoutes);
 
-var corsOptions = {
+//CORS
+/* var corsOptions = {
+      origin: "https://erossiano.github.io/"
+  }; */
+//app.use(cors());
+ // app.use(cors({ origin: true , credentials :  false}));
+/*  const whitelist = ["https://erossiano.github.io", "http://localhost:3000", "https://erossiano.github.io/thehackermark/"]; */
+/*  const corsOptions = {
+   origin: "*",
+   credentials: false,
+ } */
+ var corsOptions = {
   origin: 'https://erossiano.github.io/thehackermark',
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }
 
-app.use(cors(corsOptions));
+ app.use(cors(corsOptions));
 
 // Add Access Control Allow Origin headers
 /* app.use((req, res, next) => {
