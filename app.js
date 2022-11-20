@@ -27,8 +27,13 @@ app.use(productRoutes);
  }
  app.use(cors(corsOptions))
 
+// Add Access Control Allow Origin headers
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Origin", "https://erossiano.github.io");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
   next();
 });
 
