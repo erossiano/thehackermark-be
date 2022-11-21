@@ -42,7 +42,7 @@ app.use(productRoutes);
 
 //Ruta general
 app.use(function (req, res, next) {
-  console.log('Time:', Date.now());
+  res.send('Time: ' + Date.now());
   next();
 });
 
