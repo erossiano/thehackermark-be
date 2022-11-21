@@ -23,7 +23,7 @@ app.use(productRoutes);
    credentials: false,
  } */
  var corsOptions = {
-  origin: 'erossiano.github.io' | '*',
+  origin: 'github.io' | '*',
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
   //methods: "GET, PUT, POST, DELETE"
 }
@@ -44,7 +44,7 @@ app.use(productRoutes);
 
 
 userRoutes.get("/", (req, res) => { 
-  res.send("API funcionado! : ");
+  res.send("API funcionado!");
 });
 
 export default app;
