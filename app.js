@@ -23,9 +23,9 @@ app.use(productRoutes);
    credentials: false,
  } */
  var corsOptions = {
-  origin: 'https://github.io',
+  origin: 'https://erossiano.github.io',
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
-  //methods: "GET, PUT, POST, DELETE"
+  methods: 'GET,HEAD,PUT,PATCH,DELETE',
 }
 
  app.use(cors(corsOptions));
