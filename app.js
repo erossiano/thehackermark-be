@@ -23,7 +23,7 @@ app.use(userRoutes);
 app.use(productRoutes);
 
 userRoutes.get("/", (req, res, next) => { 
-  res.send("API funcionado!");
+  res.json({welcome : "Welcome to HackerMark API!"});
   next();
 });
 
