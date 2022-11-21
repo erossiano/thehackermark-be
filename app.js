@@ -41,7 +41,10 @@ app.use(productRoutes);
 }); */
 
 //Ruta general
-
+app.use(function (req, res, next) {
+  console.log('Time:', Date.now());
+  next();
+});
 
 userRoutes.get("/", (req, res) => { 
   res.send("API funcionado!");
