@@ -34,7 +34,7 @@ export const getUser = (req, res) => {
 
 export const getUserByEmail = (req, res) => {
   try {
-    let response = getData(req.params.email);
+    let response = getDataByEmail(req.params.email);
     response.then(
       (email) => {
         if(!email){
