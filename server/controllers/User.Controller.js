@@ -37,7 +37,7 @@ export const getUserByEmail = (req, res) => {
     let response = getData(req.params.email);
     response.then(
       (email) => {
-        if(!id){
+        if(!email){
           return res.status("400").json({message : "Email no encontrado"});
         }else{
           return res.json(email);
