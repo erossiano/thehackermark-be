@@ -7,10 +7,12 @@ const Products = mongoose.model("product",{
     publish_date: {type: String},
     publisher: {type: String},
     numOfPages: {type: Number},
-    price: {type: Number},
+    price: {type: Number,
+            deafult: 0},
     image:  {type: String},
     category:  {type: String},
-    cantidad: {type: Number} 
+    cantidad: {type: Number
+                ,default: 1} 
       });
 
 export default Products;

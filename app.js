@@ -14,7 +14,7 @@ app.use(express.json());
 
 app.use(cors());
 var corsOptions = {
-    origin: "https://erossiano.github.io"
+    origin: "https://erossiano.github.io" | "localhost:3000"
   };
 app.use(cors(corsOptions));
 

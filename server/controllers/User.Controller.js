@@ -5,6 +5,12 @@ export function getData(id){
   return query;
 }
 
+
+export function getDataByEmail(email){
+  var query = Users.find({email: email}).exec();
+  return query;
+}
+
 //Get user by id
 export const getUser = (req, res) => {
   try {
@@ -15,6 +21,26 @@ export const getUser = (req, res) => {
           return res.status("400").json({message : "No encontrado"});
         }else{
           return res.json(id);
+        }
+      }
+    );
+    
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).json({message : "Error en el servidor!"});
+  }
+};
+
+
+export const getUserByEmail = (req, res) => {
+  try {
+    let response = getData(req.params.email);
+    response.then(
+      (email) => {
+        if(!id){
+          return res.status("400").json({message : "Email no encontrado"});
+        }else{
+          return res.json(email);
         }
       }
     );
