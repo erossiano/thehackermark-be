@@ -52,6 +52,8 @@ export const getUserByEmail = (req, res) => {
 };
 
 
+
+
 //Get all users
 export const getAllUsers = async (req, res) => {
   try {
@@ -124,8 +126,43 @@ export const updateUser = (req, res) => {
 
 //Delete user
 export const deleteUser = (req, res) => {
-  Products.deleteOne({ _id: req.params.id })
+  Users.deleteOne({ _id: req.params.id })
     .then(() => res.json({ message: "Usuario Borrado" }))
     .catch((err) => res.send(err));
 };
   //Fin de delete
+
+
+
+
+
+export async function getValidUser(email, password){
+  let query = await Users.findOne({'email': email, 'password':password});
+  return query;
+}
+
+  
+export const authUser = async (req, res) => {
+    // Capture the input fields
+  let email = req.body.email;
+  let password = req.body.password;
+
+  // Ensure the input fields exists and are not empty
+  if (email && password) {
+    // Execute SQL query that'll select the account from the database based on the specified username and password
+    const user = await getValidUser(email, password);
+
+    if(!user){
+      res.json({ message: "No se recibieron datos de inicio de sesion" })
+      //console.log("Null time:" + Date.now());
+    }else{
+      console.log(user._id + "time:" + Date.now());
+        //req.session.loggedin = true;
+        //req.session.email = email;
+        res.json({'type': user.type,'name': user.name, 'email': user.email, 'id': user._id});
+        //res.redirect('/');
+        //res.send(user);
+    }
+
+  }
+}
