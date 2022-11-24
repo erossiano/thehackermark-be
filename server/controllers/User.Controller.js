@@ -1,30 +1,54 @@
+import { response } from "express";
 import Users from "../models/User.js";
 
 export function getData(id){
-  var query = Users.findOne({_id: id}).exec();
-  return query;
+  //var query = Users.findOne({_id: id}).exec();
+  var query = Users.findOne({_id: id}).exec( 
+    function (err, user) {
+      if(!user){
+        return null;
+      }else{
+        return user._id.toString();
+      }
+
+      if(err){
+        return err;
+      }
+
+    }
+    );
 }
 
 
 export function getDataByEmail(email){
-  var query = Users.findOne({email: email}).exec();
-  return query;
+  Users.findOne({email: email},
+    function (err, user) {   
+        //console.log(user._id.toString());
+        //throw err;
+        if(!user){
+          return "0";
+        }else{
+          return user._id.toString();
+        }
+
+        if(err){
+          return err;
+        }
+
+      }
+    );
+
 }
 
 //Get user by id
 export const getUser = (req, res) => {
   try {
-    let response = getData(req.params.id);
-    response.then(
-      (id) => {
+    let id = getData(req.params.id);
         if(!id){
           return res.json({'status': 0, 'message' : "No encontrado"});
         }else{
           return res.json(id);
-        }
-      }
-    );
-    
+        }   
   } catch (error) {
     //console.log(error.message);
     return res.json({'status': 0, 'message' : "Error en el servidor!"});
@@ -34,20 +58,23 @@ export const getUser = (req, res) => {
 
 export const getUserByEmail = (req, res) => {
   try {
-    let response = getDataByEmail(req.params.email);
-    response.then(
-      (email) => {
-        if(!email){
-          return res.json({'status': 0, 'message' : "Email no encontrado"});
-        }else{
-          return res.json({'status': 1, 'message' : "Email encontrado", 'email':email });
+    //Funcion de busqueda de email
+    let email = req.params.email;
+    Users.findOne({email: email},
+      function (err, user) {   
+          if(!user){
+            return res.json({'status': 0, 'message' : "Email no encontrado"});
+          }else{
+            return res.json({'status': 1, 'message' : "Email encontrado.", 'id' : user._id.toString() });
+          }
+          if(err){
+            return err;
+          }
         }
-      }
-    );
-    
+      );
+    //Fin de busqueda de email
   } catch (error) {
-    //console.log(error.message);
-    return res.json({'status': 0, 'message' : "Error en el servidor!"});
+    return res.json({'status': 0, 'message' : error.message});
   }
 };
 
@@ -74,7 +101,7 @@ export const getAllUsers = async (req, res) => {
 //Funcion para crear libros
 export const createUser = (req, res) => {
   try {
-      const user = new Users({
+      const new_user = new Users({
           //Propiedades
           name: req.body.name,
           email: req.body.email,
@@ -83,19 +110,25 @@ export const createUser = (req, res) => {
           type: req.body.type,
       });
 
-   const old_user = getDataByEmail(user.email)
-console.log("largo: " + old_user.length);
-   
-  if(old_user){
-        user.save((err, todo) => {
-          if (err) {
-              res.json({'status': 0 ,'message': "No fue posible guardar el usuario"});
+    Users.findOne({email: new_user.email},
+      function (err, user) {   
+          if(!user){
+            console.log(new_user);
+                new_user.save((error, todo) => {
+                if (error) {
+                  res.json({'status': 0 ,'message': "No fue posible guardar el usuario"});
+                }
+                  res.json({'status': 1 ,'message': `El usuario ${todo.name} ha sido guardado!`});
+                });
+          }else{
+            res.json({'status': 0, 'message' : "El usuario ya existe", 'id' : user._id.toString() });
           }
-          res.json({'status': 1 ,'message': `old: ${old_user.length} El usuario ${todo.name} ha sido guardado!`});
-      });
-  }else{
-    res.json({'status': 0 ,'message': "Ya existe un correo regitrado!"});
-  }
+          if(err){
+            return err;
+          }
+        }
+      );
+
   }catch(error){
     //console.log("No fue posible guardar!")
     return res.json({'status': 0 , message : error.message});
@@ -155,13 +188,13 @@ export const authUser = async (req, res) => {
     const user = await getValidUser(email, password);
 
     if(!user){
-      res.json({ 'status' : 0,'message': "No se recibieron datos de inicio de sesion" })
+      res.json({ 'status' : 0,'message': `Usuario o Contraseña errada ${email}` } )
       //console.log("Null time:" + Date.now());
     }else{
       console.log(user._id + "time:" + Date.now());
         //req.session.loggedin = true;
         //req.session.email = email;
-        res.json({'status' : 0,'message': 'El usuario ha sido autenticado','user' : [{'type': user.type,'name': user.name, 'email': user.email, 'id': user._id}] });
+        res.json({'status' : 0,'message': 'El usuario ha sido autenticado','user' : [{'status': 1,'type': user.type,'name': user.name, 'email': user.email, 'id': user._id}] });
         //res.redirect('/');
         //res.send(user);
     }
