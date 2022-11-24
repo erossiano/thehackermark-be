@@ -86,7 +86,7 @@ export const createUser = (req, res) => {
    const old_user = getDataByEmail(user.email)
 console.log("largo: " + old_user.length);
    
-  if(old_user.length){
+  if(old_user.length === 0){
         user.save((err, todo) => {
           if (err) {
               res.json({'status': 0 ,'message': "No fue posible guardar el usuario"});
