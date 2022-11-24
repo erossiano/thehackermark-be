@@ -1,13 +1,13 @@
 import Users from "../models/User.js";
 
 export function getData(id){
-  var query = Users.find({_id: id}).exec();
+  var query = Users.findOne({_id: id}).exec();
   return query;
 }
 
 
 export function getDataByEmail(email){
-  var query = Users.find({email: email}).exec();
+  var query = Users.findOne({email: email}).exec();
   return query;
 }
 
@@ -40,7 +40,7 @@ export const getUserByEmail = (req, res) => {
         if(!email){
           return res.json({message : "Email no encontrado"});
         }else{
-          return res.json(email);
+          return res.json({message : "Email encontrado", 'email':email });
         }
       }
     );
@@ -82,14 +82,19 @@ export const createUser = (req, res) => {
           date: req.body.date,
           type: req.body.type,
       });
-      
-      user.save((err, todo) => {
-        if (err) {
-            res.json({'status': 0 ,'message': err});
-        }
-        res.json({'status': 1 ,'message': `El usuario ${user.name} ha sido guardado!`});
-    });
 
+   const old_user = getDataByEmail(user.email)
+console.log("largo: " + old_user.length);
+   if(old_user.length === 0){
+        user.save((err, todo) => {
+          if (err) {
+              res.json({'status': 0 ,'message': "No fue posible guardar el usuario"});
+          }
+          res.json({'status': 1 ,'message': `old: ${old_user.length} El usuario ${todo.name} ha sido guardado!`});
+      });
+  }else{
+    res.json({'status': 0 ,'message': "Ya existe un correo regitrado!"});
+  }
   }catch(error){
     //console.log("No fue posible guardar!")
     return res.json({'status': 0 , message : error.message});
@@ -133,16 +138,11 @@ export const deleteUser = (req, res) => {
 };
   //Fin de delete
 
-
-
-
-
 export async function getValidUser(email, password){
   let query = await Users.findOne({'email': email, 'password':password});
   return query;
 }
 
-  
 export const authUser = async (req, res) => {
     // Capture the input fields
   let email = req.body.email;
@@ -154,13 +154,13 @@ export const authUser = async (req, res) => {
     const user = await getValidUser(email, password);
 
     if(!user){
-      res.json({ message: "No se recibieron datos de inicio de sesion" })
+      res.json({ 'status' : 0,'message': "No se recibieron datos de inicio de sesion" })
       //console.log("Null time:" + Date.now());
     }else{
       console.log(user._id + "time:" + Date.now());
         //req.session.loggedin = true;
         //req.session.email = email;
-        res.json({'type': user.type,'name': user.name, 'email': user.email, 'id': user._id});
+        res.json({'status' : 0,'message': 'El usuario ha sido autenticado','user' : [{'type': user.type,'name': user.name, 'email': user.email, 'id': user._id}] });
         //res.redirect('/');
         //res.send(user);
     }
