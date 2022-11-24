@@ -38,16 +38,16 @@ export const getUserByEmail = (req, res) => {
     response.then(
       (email) => {
         if(!email){
-          return res.json({message : "Email no encontrado"});
+          return res.json({'status': 0, 'message' : "Email no encontrado"});
         }else{
-          return res.json({message : "Email encontrado", 'email':email });
+          return res.json({'status': 1, 'message' : "Email encontrado", 'email':email });
         }
       }
     );
     
   } catch (error) {
     //console.log(error.message);
-    return res.json({message : "Error en el servidor!"});
+    return res.json({'status': 0, 'message' : "Error en el servidor!"});
   }
 };
 
@@ -85,7 +85,8 @@ export const createUser = (req, res) => {
 
    const old_user = getDataByEmail(user.email)
 console.log("largo: " + old_user.length);
-   if(old_user.length === 0){
+   
+  if(old_user.length === 0){
         user.save((err, todo) => {
           if (err) {
               res.json({'status': 0 ,'message': "No fue posible guardar el usuario"});
