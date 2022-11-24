@@ -18,7 +18,7 @@ export const getUser = (req, res) => {
     response.then(
       (id) => {
         if(!id){
-          return res.status("400").json({message : "No encontrado"});
+          return res.json({'status': 0, 'message' : "No encontrado"});
         }else{
           return res.json(id);
         }
@@ -26,8 +26,8 @@ export const getUser = (req, res) => {
     );
     
   } catch (error) {
-    console.log(error.message);
-    return res.status(500).json({message : "Error en el servidor!"});
+    //console.log(error.message);
+    return res.json({'status': 0, 'message' : "Error en el servidor!"});
   }
 };
 
@@ -38,7 +38,7 @@ export const getUserByEmail = (req, res) => {
     response.then(
       (email) => {
         if(!email){
-          return res.status("400").json({message : "Email no encontrado"});
+          return res.json({message : "Email no encontrado"});
         }else{
           return res.json(email);
         }
@@ -46,8 +46,8 @@ export const getUserByEmail = (req, res) => {
     );
     
   } catch (error) {
-    console.log(error.message);
-    return res.status(500).json({message : "Error en el servidor!"});
+    //console.log(error.message);
+    return res.json({message : "Error en el servidor!"});
   }
 };
 
@@ -60,15 +60,14 @@ export const getAllUsers = async (req, res) => {
     const users = await Users.find({});
     
     if(!users){
-      return res.status("400").json({message : error.message});
+      return res.json({message : "No se encontraron el usuarios"});
     }else{
       return res.send(users);
     }
-
     
   } catch (error) {
-    console.log(error.message);
-    return res.status(500).json({message : error.message});
+    //console.log(error.message);
+    return res.json({message : error.message});
   }
 };
 
@@ -86,13 +85,14 @@ export const createUser = (req, res) => {
       
       user.save((err, todo) => {
         if (err) {
-            res.send(err);
+            res.json({'status': 0 ,'message': err});
         }
-        res.json(todo);
+        res.json({'status': 1 ,'message': `El usuario ${user.name} ha sido guardado!`});
     });
 
   }catch(error){
-    console.log("No fue posible guardar!")
+    //console.log("No fue posible guardar!")
+    return res.json({'status': 0 , message : error.message});
   }
 };
 //Define la url para la creacion
@@ -114,12 +114,13 @@ export const updateUser = (req, res) => {
       { new: true },
       (err, Users) => {
         if (err) {
-          res.send(err);
-        } else res.json(Users);
+          res.json({'message': err, 'status': 0});
+        } else res.json({'message': "Usuario guardado!", 'status': 1});
       }
     );
   }catch(error){
-    console.log("No fue posible actualizar!")
+    //console.log("No fue posible actualizar!")
+    return res.json({'status': 0, 'message' : error.message});
   }
 };
   //Fin de actualizar productos con router
@@ -127,8 +128,8 @@ export const updateUser = (req, res) => {
 //Delete user
 export const deleteUser = (req, res) => {
   Users.deleteOne({ _id: req.params.id })
-    .then(() => res.json({ message: "Usuario Borrado" }))
-    .catch((err) => res.send(err));
+    .then(() => res.json({'status': 1, 'message': "Usuario Borrado" }))
+    .catch((err) => res.json({'status': 0, 'message': err }));
 };
   //Fin de delete
 
