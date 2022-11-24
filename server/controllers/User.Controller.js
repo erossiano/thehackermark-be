@@ -113,7 +113,7 @@ export const createUser = (req, res) => {
     Users.findOne({email: new_user.email},
       function (err, user) {   
           if(!user){
-            console.log(new_user);
+            //console.log(new_user);
                 new_user.save((error, todo) => {
                 if (error) {
                   res.json({'status': 0 ,'message': "No fue posible guardar el usuario"});
@@ -185,19 +185,19 @@ export const authUser = async (req, res) => {
   // Ensure the input fields exists and are not empty
   if (email && password) {
     // Execute SQL query that'll select the account from the database based on the specified username and password
-    const user = await getValidUser(email, password);
-
-    if(!user){
-      res.json({ 'status' : 0,'message': `Usuario o Contraseña errada ${email}` } )
-      //console.log("Null time:" + Date.now());
-    }else{
-      console.log(user._id + "time:" + Date.now());
-        //req.session.loggedin = true;
-        //req.session.email = email;
-        res.json({'status' : 0,'message': 'El usuario ha sido autenticado','user' : [{'status': 1,'type': user.type,'name': user.name, 'email': user.email, 'id': user._id}] });
-        //res.redirect('/');
-        //res.send(user);
+    Users.findOne({'email': email, 'password':password},
+    function (err, user) {   
+      if(!user){
+        //console.log(new_user);
+        res.json({ 'status' : 0,'message': `Usuario o Contraseña errada ${email}` } )    
+      }else{
+        res.json({'status' : 1,'message': 'El usuario ha sido autenticado','user' : [{'status': 1,'type': user.type,'name': user.name, 'email': user.email, 'id': user._id}] });
+      }
+      if(err){
+        return err;
+      }
     }
+    );
 
   }
 }
